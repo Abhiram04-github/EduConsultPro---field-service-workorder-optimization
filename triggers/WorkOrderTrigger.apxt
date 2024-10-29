@@ -1,0 +1,21 @@
+trigger WorkOrderTrigger on WorkOrder__c (after insert) {
+
+    if(trigger.isafter && trigger.isinsert){
+
+        WorkOrderClass.workOrder(trigger.new);
+
+    }
+
+}
+
+
+
+
+3.ScheduleClass.apxt
+
+global class ScheduleClass implements Schedulable {
+   global void execute(SchedulableContext SC) {
+        RecordDeletions delrec = new RecordDeletions();
+        database.executeBatch(delrec, 200);
+   }
+}
